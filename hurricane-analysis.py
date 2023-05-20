@@ -34,9 +34,7 @@ max_sustained_winds = [
 # areas affected by each hurricane
 areas_affected = [
     ['Central America', 'Mexico', 'Cuba', 'Florida', 'The Bahamas'],
-    [
-        'Lesser Antilles', 'The Bahamas', 'United States East Coast',
-        'Atlantic Canada'
+    ['Lesser Antilles', 'The Bahamas', 'United States East Coast','Atlantic Canada'
     ], ['The Bahamas', 'Northeastern United States'],
     [
         'Lesser Antilles', 'Jamaica', 'Cayman Islands', 'Cuba', 'The Bahamas',
@@ -103,12 +101,42 @@ deaths = [
 # Update Recorded Damages
 conversion = {"M": 1000000, "B": 1000000000}
 
-# test function by updating damages
+# create function by updating damages
+damage_updated = []
+def update_damages(damage):
+    for damage in damages:
+        if damage[-1] == 'M':
+            damage_updated.append(float(damage[0:-1]) * conversion["M"])
+        if damage[-1] == "B":
+            damage_updated.append(float(damage[0:-1]) * conversion["B"])
+        if damage == "Damages not recorded":
+            damage_updated.append(damage)
+    return damage_updated
+
+damage_updated = update_damages(damages)
+print(damage_updated)
+
 
 # 2
 # Create a Table
+def construct_hurricane_dict(names, months, years, max_sustained_winds,
+                             areas_affected, damage_updated, deaths):
+    hurricanes = {}
+    for i in range(len(names)):
+        hurricanes[names[i]] = {"Name": names[i],
+                                "Month": months[i],
+                                "Year": years[i],
+                                "Max Sustained Wind": max_sustained_winds[i],
+                                "Area Affected": areas_affected[i],
+                                "Damage Updated": damage_updated[i],
+                                "Deaths": deaths[i]
+                                }
+    return hurricanes
 
 # Create and view the hurricanes dictionary
+hurricanes = construct_hurricane_dict(names, months, years, max_sustained_winds,
+                             areas_affected, damage_updated, deaths)
+print(hurricanes["Camille"]["Year"])
 
 # 3
 # Organizing by Year
