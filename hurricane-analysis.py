@@ -118,7 +118,7 @@ print(damage_updated)
 
 
 # 2
-# Create a Table
+# Create a functon that constructs a dictionary  from the lists
 def construct_hurricane_dict(names, months, years, max_sustained_winds,
                              areas_affected, damage_updated, deaths):
     hurricanes = {}
@@ -133,7 +133,7 @@ def construct_hurricane_dict(names, months, years, max_sustained_winds,
                                 }
     return hurricanes
 
-# Create and view the hurricanes dictionary
+# Call the function and display the result
 hurricanes = construct_hurricane_dict(names, months, years, max_sustained_winds,
                              areas_affected, damage_updated, deaths)
 print(hurricanes["Camille"]["Year"])
