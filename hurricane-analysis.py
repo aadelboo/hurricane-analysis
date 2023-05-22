@@ -114,7 +114,7 @@ def update_damages(damage):
     return damage_updated
 
 damage_updated = update_damages(damages)
-print(damage_updated)
+#print(damage_updated)
 
 
 
@@ -137,7 +137,7 @@ def construct_hurricane_dict(names, months, years, max_sustained_winds,
 # Call the function and display the result
 hurricanes = construct_hurricane_dict(names, months, years, max_sustained_winds,
                              areas_affected, damage_updated, deaths)
-print(hurricanes["Camille"]["Year"])
+#print(hurricanes["Camille"]["Year"])
 
 
 # 3
@@ -155,7 +155,7 @@ def hurricane_by_year(hurricanes):
 
 # create a new dictionary of hurricanes with year and key
 hurricane_year = hurricane_by_year(hurricanes)
-print(hurricane_year[1932])
+#print(hurricane_year[1932])
 
 
 # 4
@@ -172,7 +172,7 @@ def count_areas_affected(hurricanes):
 
 # create dictionary of areas to store the number of hurricanes involved in
 affected_areas_count = count_areas_affected(hurricanes)
-print(affected_areas_count)
+##print(affected_areas_count)
 
 
 # 5
@@ -188,18 +188,53 @@ def most_affected_area(affected_areas_count):
 
 # find most frequently affected area and the number of hurricanes involved in
 max_area, max_area_count = most_affected_area(affected_areas_count)
-print(f"The most area affected is {max_area}, and have been affected {max_area_count} times.")
+#print(f"The most area affected is {max_area}, and have been affected {max_area_count} times.")
 
 
 # 6
 # Calculating the Deadliest Hurricane
+def most_death(hurricanes):
+    max_mortality_cane = "Cane I"
+    max_mortality = 0
+    for cane in hurricanes:
+        if hurricanes[cane]["Deaths"] > max_mortality:
+            max_mortality_cane = cane
+            max_mortality = hurricanes[cane]["Deaths"]
+    return max_mortality, max_mortality_cane
 
 # find highest mortality hurricane and the number of deaths
+max_mortality, max_mortality_cane = most_death(hurricanes)
+#print(max_mortality, max_mortality_cane)
 
 # 7
 # Rating Hurricanes by Mortality
 
+def rate_mortality(hurricanes):
+    mortality_scale = {0: 0,
+                      1: 100,
+                      2: 500,
+                      3: 1000,
+                      4: 10000}
+    hurricanes_by_mortality = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []}
+    for cane in hurricanes:
+        num_death = hurricanes[cane]["Deaths"]
+        if num_death == mortality_scale[0]:
+            hurricanes_by_mortality[0].append(hurricanes[cane]["Name"])
+        elif num_death > mortality_scale[0] and num_death <= mortality_scale[1]:
+            hurricanes_by_mortality[1].append(hurricanes[cane]["Name"])
+        elif num_death > mortality_scale[1] and num_death <= mortality_scale[2]:
+            hurricanes_by_mortality[2].append(hurricanes[cane]["Name"])
+        elif num_death > mortality_scale[2] and num_death <= mortality_scale[3]:
+            hurricanes_by_mortality[3].append(hurricanes[cane]["Name"])
+        elif num_death > mortality_scale[3] and num_death <= mortality_scale[4]:
+            hurricanes_by_mortality[4].append(hurricanes[cane]["Name"])
+        else:
+            hurricanes_by_mortality[5].append(hurricanes[cane]["Name"])
+    return hurricanes_by_mortality
+
 # categorize hurricanes in new dictionary with mortality severity as key
+hurricane_by_mortality = rate_mortality(hurricanes)
+print(hurricane_by_mortality[4])
 
 # 8 Calculating Hurricane Maximum Damage
 
