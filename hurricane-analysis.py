@@ -117,6 +117,7 @@ damage_updated = update_damages(damages)
 print(damage_updated)
 
 
+
 # 2
 # Create a functon that constructs a dictionary  from the lists
 def construct_hurricane_dict(names, months, years, max_sustained_winds,
@@ -138,20 +139,57 @@ hurricanes = construct_hurricane_dict(names, months, years, max_sustained_winds,
                              areas_affected, damage_updated, deaths)
 print(hurricanes["Camille"]["Year"])
 
+
 # 3
 # Organizing by Year
+hurricane_year = {}
+def hurricane_by_year(hurricanes):
+    for i in hurricanes:
+        current_year = hurricanes[i]["Year"]
+        current_cane = hurricanes[i]
+        if current_year not in hurricane_year:
+            hurricane_year[current_year] = [current_cane]
+        else:
+            hurricane_year[current_year].append(current_cane)
+    return hurricane_year
 
 # create a new dictionary of hurricanes with year and key
+hurricane_year = hurricane_by_year(hurricanes)
+print(hurricane_year[1932])
+
 
 # 4
 # Counting Damaged Areas
+def count_areas_affected(hurricanes):
+    affected_areas_count = {}
+    for cane in hurricanes:
+        for area in hurricanes[cane]["Area Affected"]:
+            if area not in affected_areas_count:
+                affected_areas_count[area] = 1
+            else:
+                affected_areas_count[area] += 1
+    return affected_areas_count
 
 # create dictionary of areas to store the number of hurricanes involved in
+affected_areas_count = count_areas_affected(hurricanes)
+print(affected_areas_count)
+
 
 # 5
 # Calculating Maximum Hurricane Count
+def most_affected_area(affected_areas_count):
+    max_area = 'Central America'
+    max_area_count = 0
+    for area in affected_areas_count:
+        if affected_areas_count[area] > max_area_count:
+            max_area = area
+            max_area_count = affected_areas_count[area]
+    return max_area, max_area_count
 
 # find most frequently affected area and the number of hurricanes involved in
+max_area, max_area_count = most_affected_area(affected_areas_count)
+print(f"The most area affected is {max_area}, and have been affected {max_area_count} times.")
+
 
 # 6
 # Calculating the Deadliest Hurricane
